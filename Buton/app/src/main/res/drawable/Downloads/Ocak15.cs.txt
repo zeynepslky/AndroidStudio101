@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace veritabani
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            OBSContext context = new OBSContext();
+            Ogrenci o = new Ogrenci();
+            Ders d = new Ders();
+            Veli v = new Veli();
+            OgrenciDers od = new OgrenciDers();
+
+
+            /*o.Ad = "Sevim";
+            o.Soyad = "Tuğrul";
+            o.OgrNo = "1236";
+
+            context.Ogrenci.Add(o);
+            context.SaveChanges();*/
+
+            /*d.DersKodu = "404";
+            d.DersAdi = "Yapay zeka uygulamaları";
+
+            context.Ders.Add(d);
+            context.SaveChanges();*/
+
+            /*var ogrenciList = context.Ogrenci.ToList();
+            foreach (var ogrenci in ogrenciList)
+            {
+                Console.WriteLine("ID: "+ogrenci.OgrenciID + "  Ad: "+ ogrenci.Ad + "   Soyad: " + ogrenci.Soyad+ "  OgrenciNo: "+ ogrenci.OgrNo);
+            }
+            var dersList = context.Ders.ToList();
+
+            foreach (var ders in dersList)
+            {
+                Console.WriteLine("Ders ID : " + ders.DersID + "    Ders kodu : "+ ders.DersKodu + "   Ders Adı: " + ders.DersAdi );
+            }*/
+
+            /*Console.WriteLine("Öğrenci Adını Girin: ");
+            o.Ad = Console.ReadLine();
+            Console.WriteLine("Öğrenci Soyadını Girin: ");
+            o.Soyad = Console.ReadLine();
+            Console.WriteLine("Öğrenci No. Girin: ");
+            o.OgrNo = Console.ReadLine();
+
+            context.Ogrenci.Add(o);
+            context.SaveChanges();*/
+
+
+            /*Console.WriteLine("Ders Kodunu Girin(ÖRN: BİL404): ");
+            d.DersKodu = Console.ReadLine();
+            Console.WriteLine("Ders Adını Girin: ");
+            d.DersAdi = Console.ReadLine();*/
+
+            /*context.Ders.Add(d);
+            context.SaveChanges();*/
+
+            /*v.TCkimlik = "123";
+            v.VeliAdi = "Ayhan Ak";
+
+            context.Veli.Add(v);
+            context.SaveChanges();*/
+
+            Console.WriteLine("<-------------------ÖĞRENCİLER------------------------------>");
+
+            var ogrenciList = context.Ogrenci.ToList();
+            foreach (var ogrenci in ogrenciList)
+            {
+                Console.WriteLine("ID: " + ogrenci.OgrenciID + "  Ad: " + ogrenci.Ad + "   Soyad: " + ogrenci.Soyad + "  OgrenciNo: " + ogrenci.OgrNo);
+
+            }
+
+            Console.WriteLine("<------------------DERSLER------------------------------>");
+
+            var dersList = context.Ders.ToList();
+            foreach (var ders in dersList)
+            {
+                Console.WriteLine("Ders ID : " + ders.DersID + "    Ders kodu : " + ders.DersKodu + "   Ders Adı: " + ders.DersAdi);
+            }
+
+            
+            /*Console.WriteLine("Öğrenci ID nizi girin: ");
+            od.OgrenciID = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Seçmek istediğiniz dersin ID girin ");
+            od.DersID = Convert.ToInt32(Console.ReadLine());
+            context.OgrenciDers.Add(od);
+            context.SaveChanges();
+
+            var guncellenecekders = context.OgrenciDers.Where(x => x.OgrenciDersID == 4).FirstOrDefault();
+            guncellenecekders.VizeNot = 90;
+            guncellenecekders.FinalNot = 80;
+            guncellenecekders.HarfNot = "A";
+            context.OgrenciDers.Add(od);
+            context.SaveChanges();*/
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+    }
+}

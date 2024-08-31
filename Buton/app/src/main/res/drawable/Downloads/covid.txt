@@ -1,0 +1,81 @@
+SELECT * from covid
+
+/*Soru: Türkiyede bugüne kadar kaç ölüm gerçekleşti */
+
+SELECT sum(new_deaths) from covid where location="Turkey" 
+
+SELECT * from covid where location="Turkey" and date="2023-07-19"
+
+/*Soru: günlük vaka sayısı ile günlük ölüm adeti arasındaki orana göre listeleyiniz*/
+
+SELECT location,new_cases,new_deaths,((new_deaths/new_cases)*100) as Oran from covid where date="2022-07-19" and location not in ("World") ORDER BY Oran desc
+
+/*Soru: yaş ortalamasının en yük olduğu ilk 15 lokasyon*/
+
+SELECT continent,location,median_age from covid where date="2023-07-19" and median_age!="NULL" ORDER BY median_age desc limit 15
+
+/*Soru:kıtaya göre ortalama diyabet yaygınlığı değeri */
+
+SELECT continent,avg(diabetes_prevalence) as Ortalama_Diyabet from covid where (location!="NULL" and location!="world") and diabetes_prevalence!="NULL" GROUP BY continent
+
+/*Soru: Türkiyede vefat sayısının 350 den çok olduğu tarihler */
+
+SELECT date,new_deaths from covid where location="Turkey" and new_deaths>350 ORDER BY date
+
+/*Soru:kadınların sigara içme oranı */
+
+SELECT location,female_smokers from covid GROUP BY location ORDER BY female_smokers desc 
+
+SELECT location,male_smokers from covid GROUP BY location ORDER BY male_smokers desc 
+
+/*Soru: Aşırı yoksulluk verisi olan lokasyonların sıralanması*/
+
+SELECT continent,location,extreme_poverty from covid where extreme_poverty!=0 and location!="World" GROUP BY location ORDER BY extreme_poverty desc
+
+/*Soru: dünyada yoksulluk düzeyi en çok olan ülkelerden başlayarak nufusun aşılanma oranı nedir*/
+
+SELECT continent as Kıta, 
+location as Ülkeler, population as Nufus, 
+people_fully_vaccinated as "Tüm aşını olanlar",
+((people_fully_vaccinated/population)*100) as "Nufusun Aşılanma Oranı", 
+extreme_poverty as "Ülkedeki Yoksulluk Oranı"  
+from covid where date="2023-07-19" 
+and (location!="World" and extreme_poverty!="NULL") 
+and people_fully_vaccinated!="NULL" GROUP BY location 
+ORDER BY extreme_poverty desc
+
+/*Soru:Nufus yoğunluğunun en yüksek olduğu ilk 10 ülkedeki toplam vaka sayıları */
+
+SELECT location as Ülke,population as Nufus, total_deaths as "Toplam ölen Kişi Sayısı",((total_deaths/population)*100) as "Nufusa göre ölüm oranı"  from covid where date="2023-07-19" and total_deaths!="NULL" GROUP BY location ORDER BY ((total_deaths/population)*100) desc limit 20
+
+
+/*Soru: Satın alma gücü paritesi GSYİH oranı en yüksek ülkelerden başlayarak beklenen yaşam süresini göster*/
+
+SELECT location as Ülkeler ,life_expectancy as "Beklenen Yaşam Süresi",gdp_per_capita as "Satın Alma Gücü paritesi" from owid where life_expectancy!="NULL" and gdp_per_capita!="NULL" GROUP BY location ORDER BY gdp_per_capita desc
+
+/*Soru: covid olan kişinin ölme oranına göre en yüksek olduğu ülkelerden başlayarak ülkelerin yoksulluk hastane yatak sayısı vb paritelerini karşılaştır*/
+
+SELECT location as ülkeler,gdp_per_capita as "Sagp",hospital_beds_per_thousand as "Ülkeledeki 1000 kişi başına düşüne hastane yatak sayısı",total_cases as "Toplam Vaka",total_deaths as "Toplam Ölüm",
+((total_deaths/total_cases)*100) as "Ölüm oranı" from covid where date="2023-07-19" and 
+hospital_beds_per_thousand!="NULL" and total_cases!="NULL" and gdp_per_capita!="NULL" and total_deaths!="NULL"
+GROUP BY location ORDER BY ((total_deaths/total_cases)*100) desc
+
+/*Soru: Türkiyede 2021 Kurban Byaramından (19-23 Temmuz) önceki aydan sonraki ayın covid vaka sayıları*/
+
+SELECT date as tarih,location as Ülkeler,new_cases as "Yeni Vakalar"  from covid  where location="Turkey" and date BETWEEN "2021-06-20" and "2021-08-20" ORDER BY date
+
+/*Soru: kıtalara göre son 5 ayda covid vakaları toplamı*/
+
+SELECT date,continent,sum(new_cases) from covid where new_cases!="NULL" and continent!="NULL" and date BETWEEN "2023-02-19" and "2023-07-19" GROUP BY continent ORDER BY sum(new_cases) desc
+
+
+
+
+
+
+
+
+
+
+
+ 
